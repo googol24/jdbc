@@ -1,8 +1,7 @@
 import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class TestDateAndTime {
     public static void main(String[] args) {
@@ -33,6 +32,36 @@ public class TestDateAndTime {
         // 获取所有时区
         for (String str : TimeZone.getAvailableIDs()) {
             System.out.println(str);
+        }
+
+        // 5 时间排序
+        String s1 = "2019-08-10 22:18:22";
+        String s2 = "2018-08-10 22:18:22";
+        String s3 = "2018-08-10 22:19:22";
+        String s4 = "2019-08-11 22:19:22";
+
+        List<Date> dateList = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            dateList.add(sdf.parse(s1));
+            dateList.add(sdf.parse(s2));
+            dateList.add(sdf.parse(s3));
+            dateList.add(sdf.parse(s4));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        // 排序前：
+        for (Date date : dateList) {
+            System.out.println(sdf.format(date));
+        }
+
+        System.out.println("排序后：");
+        Collections.sort(dateList);
+
+        // 排序后：
+        for (Date date : dateList) {
+            System.out.println(sdf.format(date));
         }
     }
 }
